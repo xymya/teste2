@@ -1,0 +1,84 @@
+spring:
+  profiles:
+    active:
+      - local
+---
+api:
+  command:
+    kafka:
+      topic-agenda-name: agenda-result
+  url-cpf-integration: https://user-info.herokuapp.com/users
+  timer-scheduled: 60000
+server:
+  port: 8080
+spring:
+  profiles:
+    active:
+      - local
+---
+
+project:
+  name: @project.name@
+  version: @project.version@
+  description: @project.description@
+server:
+  port: 8085
+  servlet:
+    context-path: /
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  http2:
+    enabled: true
+  forward-headers-strategy: framework
+spring:
+  application:
+    name: desafio-back-votos
+
+  config:
+    activate:
+      on-profile:
+        - local
+  data:
+    mongodb:
+      database: desafio-votos
+      uri: mongodb+srv://jhoffmann:KE1HqdviGeVfDwny@cluster0.uukremx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+  kafka:
+    bootstrap-servers:
+      - pkc-7xoy1.eu-central-1.aws.confluent.cloud:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: ${spring.application.name}
+    properties:
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='XUR5NZPFB4IW66KD' password='qAobB4WertsIcKtOe9Z5xLgJiK1nsskKHAqtfHka54rraBHY+8wRfCc4IWvrWI2Q';
+      security:
+        protocol: SASL_SSL
+      session:
+        timeout:
+          ms: 45000
+springdoc:
+#  swagger-ui:
+#    path: /swagger-ui.html
+#  api-docs:
+#    path: /api-docs
+  use-management-port: true
+  show-actuator: true
+  api-docs:
+    version: openapi_3_1
+  swagger-ui:
+    use-root-path: true
+management:
+  server:
+    port: 8080
+  endpoints:
+    web:
+      exposure:
+        include: openapi, swagger-ui

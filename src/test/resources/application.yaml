@@ -1,0 +1,14 @@
+api:
+  timer-scheduled: 60000000
+  url-cpf-integration: https://user-info.herokuapp.com/users
+  command:
+    kafka:
+      topic-agenda-name: agenda-result
+spring:
+  mongodb:
+    embedded:
+      version: 4.4.9
+  data:
+    mongodb:
+      database: desafio-votos
+      uri: mongodb+srv://jhoffmann:KE1HqdviGeVfDwny@cluster0.uukremx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
